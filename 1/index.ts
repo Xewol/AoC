@@ -18,9 +18,6 @@ for (let data of newData){
     numOfCalories.push(sum);
     sum=0;
    }
-
-
-
     
 }
 let sorted = numOfCalories.sort((a,b)=>b-a)
