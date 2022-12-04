@@ -4,7 +4,7 @@ import fs from 'fs'
 
 
 const data = fs.readFileSync('./data.txt','utf8')
-//*split on new line, replace mac's \r and return slices of 2 compartments 
+//*split on new line, replace mac's \r 
 let splitted=data.split('\n').map((pair)=>pair.replace('\r',''))
 
 let splittedTrios:string[][] = []
