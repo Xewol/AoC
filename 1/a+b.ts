@@ -20,6 +20,7 @@ for (let data of newData){
    }
     
 }
+//b 
 let sorted = numOfCalories.sort((a,b)=>b-a)
 
 let best3 = sorted[0]+sorted[1]+sorted[2];
