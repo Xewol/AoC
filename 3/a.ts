@@ -1,5 +1,4 @@
 import fs from 'fs'
-import { type } from 'os';
 
 
 
@@ -17,7 +16,6 @@ const priorityArray = ['',"a","b","c","d","e","f","g","h","i","j","k","l","m","n
 const types:string[] = []
 
 
-let idx=0;
 for (let data of splitted){
     
     let first = data[0].split('');
