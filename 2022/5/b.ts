@@ -40,6 +40,8 @@ const moveCrate = (qty:number,from:number,to:number)=>{
        movedCrates.push(removed)
     }
     crates[to]=[...crates[to],...movedCrates.reverse()]
+    //?crates[to]=Array.prototype.concat(crates[to],movedCrates.reverse())
+    
 }
 
 
