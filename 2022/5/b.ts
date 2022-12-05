@@ -39,7 +39,7 @@ const moveCrate = (qty:number,from:number,to:number)=>{
        if(removed)
        movedCrates.push(removed)
     }
-    crates[to]=[...crates[to],...movedCrates]
+    crates[to]=[...crates[to],...movedCrates.reverse()]
 }
 
 
