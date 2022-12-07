@@ -11,9 +11,10 @@ const nonRepeated = (array:string[],testValue:string)=>{
 
 //*split on every letter
 let data = fs.readFileSync('./data.txt','utf8').split('')
-const DIFFERENT_CHARACTERS=4
+const DIFFERENT_CHARACTERS=14
 
-for(let i=0;i<data.length-3;i++){
+
+for(let i=0;i<data.length-13;i++){
 
 let result:boolean[] =[]     
 let testingArray:string[] = []
@@ -30,7 +31,7 @@ for (let letter of testingArray){
 
 if(!result.includes(false)){
     //!need the +4 because of index returns first element and is counting from 0
-console.log(i+4)
+console.log(i+DIFFERENT_CHARACTERS)
 break;
 }
 
