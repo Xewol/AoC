@@ -13,6 +13,7 @@ $ ls
 584 i
 dir z
 cd z
+$ ls
 69 test
 $ cd ..
 $ cd ..
