@@ -50,9 +50,33 @@ for (let command of data){
     if(command.startsWith('cd')){
         cd(command.split(' ')[1])
     }
+
        //i dont think if ls is needed
     if(command.startsWith('ls')) continue;
 
+    //ls does the following
+    for (let entity of homeDir){
+        //! we cant check subdirectories of file so we skip
+        if(!entity.name.startsWith('dir')) continue;
+        //*it's a main subdirectory of '/'
+        if(entity.name === cwd()){
+            if(command.startsWith('dir')){
+                //!subElements is know because its a dir not a file
+                entity.subElements!.push({name:command,subElements:[],size:0})
+           }
+           else{
+            const [size,name] =command.split(' ')
+            entity.subElements!.push({name:name,size:Number(size)})
+           }
+        }
+        //*need to search through every folder until dir is found
+        else{
+            for (let subEntity in entity.subElements){
+                
+            }
+        }
+        //TODO find 
+    }
     
 }
 
