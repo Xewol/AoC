@@ -73,12 +73,13 @@ for (let command of data) {
     }
   } else {
     if (command.startsWith('dir')) {
-      //!subElements is know because its a dir not a file
-      dir.subElements?.push({ name: command, subElements: [], size: 0 })
+      //!subElements is known because its a dir not a file
+      //* thats why not null assertion
+      dir.subElements!.push({ name: command, subElements: [], size: 0 })
     } else {
       const [size, name] = command.split(' ')
 
-      dir.subElements?.push({ name: name, size: Number(size) })
+      dir.subElements!.push({ name: name, size: Number(size) })
     }
   }
 }
