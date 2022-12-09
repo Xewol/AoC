@@ -37,8 +37,8 @@ visibleTrees.push(
   )
 )
 
-for (let i = 1; i < data[i].length - 1; i++) {
-  for (let j = 1; j < data[j].length - 1; j++) {
+for (let i = 1; i < data.length - 1; i++) {
+  for (let j = 1; j < data[i].length - 1; j++) {
     if (checkVisibility(data[i][j], i, j)) visibleTrees.push(data[i][j])
   }
 }
