@@ -52,21 +52,6 @@ const cd = (dest: string) => {
   }
 }
 
-//getting homeDir
-for (let [idx, command] of data.entries()) {
-  if (command.startsWith('cd')) {
-    data.splice(0, idx)
-    break
-  }
-
-  if (command.startsWith('dir')) {
-    homeDir.push({ name: command, subElements: [], size: 0 })
-  } else {
-    const [size, name] = command.split(' ')
-    homeDir.push({ name: name, size: Number(size) })
-  }
-}
-
 for (let command of data) {
   if (command.startsWith('cd')) {
     cd(command.split(' ')[1])
@@ -78,7 +63,15 @@ for (let command of data) {
 
   //ls does the following
   let dir = cwd()
-  if (dir) {
+  //!no dir -> we are in '/'
+  if (!dir) {
+    if (command.startsWith('dir')) {
+      homeDir.push({ name: command, subElements: [], size: 0 })
+    } else {
+      const [size, name] = command.split(' ')
+      homeDir.push({ name: name, size: Number(size) })
+    }
+  } else {
     if (command.startsWith('dir')) {
       //!subElements is know because its a dir not a file
       dir.subElements?.push({ name: command, subElements: [], size: 0 })
@@ -91,7 +84,7 @@ for (let command of data) {
 }
 
 for (let entity of homeDir) {
-  console.log(entity)
+  //TODO sum up sizes corectly
 }
 
 goDepth(homeDir)
