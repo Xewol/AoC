@@ -100,20 +100,26 @@ for (let entity of homeDir) {
   }
 }
 
-let foundDirs: Dir[] = []
+const usedSpace = homeDir.reduce((a, b) => a + b.size, 0)
+
+const MAX_STORAGE = 70_000_000
+const currentSpace = MAX_STORAGE - usedSpace
+const requiresSpace = 30_000_000 - currentSpace
+
+let allDirs: Dir[] = []
 
 for (let entity of homeDir) {
   if (entity.name.startsWith('dir')) {
     //! only dir has subelements
 
     //*check main dir
-    if (entity.name.startsWith('dir') && entity.size <= 100_000) {
-      foundDirs.push(entity)
+    if (entity.name.startsWith('dir')) {
+      allDirs.push(entity)
     }
     //*serach through it
     entity.subElements!.reduce(function recur(acc: Dir[], child: Dir): Dir[] {
-      if (child.name.startsWith('dir') && child.size <= 100_000) {
-        foundDirs.push(child)
+      if (child.name.startsWith('dir')) {
+        allDirs.push(child)
       }
       if (child.subElements)
         return child.subElements.reduce(recur, child.subElements)
@@ -122,5 +128,8 @@ for (let entity of homeDir) {
     }, [])
   }
 }
-console.log(foundDirs)
-console.log(foundDirs.reduce((a, b) => a + b.size, 0))
+//!sort ascending and get >= requires space
+console.log(
+  allDirs.sort((a, b) => a.size - b.size).find(ent => ent.size >= requiresSpace)
+    ?.size
+)
