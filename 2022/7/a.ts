@@ -21,27 +21,26 @@ let path: string[] = []
 const goDepth = (arr: Dir[], depth = 0) => {
   if (!arr) return
   for (let entity of arr) {
-    console.log(
-      `${'\t'.repeat(depth)}-${entity.name} ${
-        !entity.name.startsWith('dir') ? `${entity.size}` : ''
-      }`
-    )
+    console.log(`${'\t'.repeat(depth)}-${entity.name} ${entity.size}`)
     if (entity.subElements) {
       goDepth(entity.subElements, depth + 1)
     }
   }
 }
 
-const cwd = (dir = homeDir): any => {
-  for (let letter of path) {
-    let res = dir.find(
-      ent => ent.name.startsWith('dir') && ent.name.split(' ')[1] === letter
-    )
-    if (res && letter !== path[path.length - 1])
+const cwd = (dir = homeDir, currPos = 0): Dir | undefined => {
+  //!call find at least once
+  let res = dir.find(
+    ent =>
+      ent.name.startsWith('dir') && ent.name.split(' ')[1] === path[currPos]
+  )
+  if (res)
+    if (currPos === path.length - 1) {
+      return res
+    } else {
       //*dig deeper
-      return cwd(res.subElements)
-  }
-  return dir
+      return cwd(res.subElements, currPos + 1)
+    }
 }
 
 const cd = (dest: string) => {
@@ -90,37 +89,9 @@ for (let command of data) {
     }
   }
 }
-//   // for (let entity of homeDir){
 
-//   //     //! we cant check subdirectories of file so we skip
-//   //     if(!entity.name.startsWith('dir')) continue;
-//   //     //*it's a main subdirectory of '/'
-//   //     if(entity.name.split(' ')[1] === cwd()){
-//   //         if(command.startsWith('dir')){
-//   //             //!subElements is know because its a dir not a file
-//   //             entity.subElements!.push({name:command,subElements:[],size:0})
-//   //         }
-//   //         else{
-//   //             const [size,name] =command.split(' ')
-//   //             entity.subElements!.push({name:name,size:Number(size)})
-//   //         }
-//   //     }
-//   //     //*need to search through every folder until dir is found
-//   //     else{
-//   //         let foundDir = entity.subElements!.find((val)=>val.name.split(' ')[1] === cwd())
-//   //         if(foundDir){
-//   //             if(command.startsWith('dir')){
-//   //                 //!subElements is know because its a dir not a file
-//   //                 foundDir.subElements!.push({name:command,subElements:[],size:0})
-//   //            }
-//   //            else{
-//   //             const [size,name] =command.split(' ')
-//   //             foundDir.subElements!.push({name:name,size:Number(size)})
-//   //            }
-//   //         }
-
-//   //     }
-//   // }
-// }
+for (let entity of homeDir) {
+  console.log(entity)
+}
 
 goDepth(homeDir)
