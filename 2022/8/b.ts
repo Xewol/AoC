@@ -2,7 +2,7 @@ import fs from 'fs'
 import _ from 'lodash'
 import { exit } from 'process'
 
-let data = fs
+const data = fs
   .readFileSync('./data.txt', 'utf8')
   .split('\n')
   .map(tree => tree.replace('\r', ''))
