@@ -18,10 +18,10 @@ const checkVisibility = (val: number, row: number, col: number) => {
   const right = data[row].filter((_, idx) => idx > col)
 
   //!other trees are blocking its view
-  let t = !top.map(num => num >= val).includes(true)
-  let l = !left.map(num => num >= val).includes(true)
-  let r = !right.map(num => num >= val).includes(true)
-  let b = !bottom.map(num => num >= val).includes(true)
+  let t = !top.some(num => num >= val)
+  let l = !left.some(num => num >= val)
+  let r = !right.some(num => num >= val)
+  let b = !bottom.some(num => num >= val)
   return t || l || r || b
 }
 
